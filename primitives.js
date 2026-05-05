@@ -1,4 +1,4 @@
-let str = "javascript piscine";
-let num = 25;
-let bool = true;
-let undef ;
+const str = "javascript piscine";
+const num = 25;
+const bool = true;
+const undef = undefined;
