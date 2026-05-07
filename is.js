@@ -112,11 +112,11 @@ export const is = {
 // console.log(is.arr([1, 2, 3])); // true
 // console.log(is.arr({})); // false
 
-// Test is.obj
-console.log(is.obj({})); // true
-console.log(is.obj(null)); // true
-console.log(is.obj([])); // false
-console.log(is.obj(function () {})); // false
+// // Test is.obj
+// console.log(is.obj({})); // true
+// console.log(is.obj(null)); // true
+// console.log(is.obj([])); // false
+// console.log(is.obj(function () {})); // false
 
 // // Test is.fun
 // console.log(is.fun(function () {})); // true
