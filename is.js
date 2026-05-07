@@ -1,9 +1,7 @@
-Object.assign(is, {
+Object.assign(is,
+     {
     num(arg1){
-        if (typeof arg1 === 'number' && !Number.isNaN(arg1)) {
-        return true;
-    }
-            return false
+        return typeof arg1 === 'number';
     },
     nan(arg1) {
          if (Number.isNaN(arg1)) {
@@ -77,10 +75,10 @@ Object.assign(is, {
 }); 
 
 // Test is.num
-// console.log(is.num(5)); // true
-// console.log(is.num(-5.5)); // true
-// console.log(is.num(NaN)); // false
-// console.log(is.num("5")); // false
+console.log(is.num(5)); // true
+console.log(is.num(-5.5)); // true
+console.log(is.num(NaN)); // false
+console.log(is.num("5")); // false
 
 // // Test is.nan
 // console.log(is.nan(NaN)); // true
