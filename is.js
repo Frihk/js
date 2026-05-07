@@ -1,4 +1,4 @@
-is = {
+Object.assign(is, {
     num(arg1){
         if (typeof arg1 === 'number' && !Number.isNaN(arg1)) {
         return true;
@@ -74,7 +74,7 @@ is = {
         }
     },
     
-}; 
+}); 
 
 // Test is.num
 // console.log(is.num(5)); // true
