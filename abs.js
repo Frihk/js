@@ -16,12 +16,12 @@ function abs(arg2) {
     }
 }
 
-console.log(isPositive(3)); // Should output true
-console.log(isPositive(0)); // Should output false
-console.log(isPositive(-3)); // Should output false
+// console.log(isPositive(3)); // Should output true
+// console.log(isPositive(0)); // Should output false
+// console.log(isPositive(-3)); // Should output false
 
-// Test abs function
-console.log(abs(0)); // Should output 0
-console.log(abs(5)); // Should output 5
-console.log(abs(-5)); // Should output 5
-console.log(abs(-10)); // Should output 10
+// // Test abs function
+// console.log(abs(0)); // Should output 0
+// console.log(abs(5)); // Should output 5
+// console.log(abs(-5)); // Should output 5
+// console.log(abs(-10)); // Should output 10

@@ -1,4 +1,4 @@
-const is = {
+export const is = {
     num(arg1){
         if (typeof arg1 === 'number' && !Number.isNaN(arg1)) {
         return true;
@@ -47,11 +47,10 @@ const is = {
         return false
     },
     obj(arg1) {
-        if (typeof(arg1) === 'object' && !Array.isArray(arg1)) {
-            return true
-        }else {
-            return false
+        if (typeof arg1 === 'object'  && !Array.isArray(arg1)) {
+        return true;
         }
+        return false;
     },
     fun(arg1) {
         if ((typeof(arg1) === 'function')) {
@@ -113,11 +112,11 @@ const is = {
 // console.log(is.arr([1, 2, 3])); // true
 // console.log(is.arr({})); // false
 
-// // Test is.obj
-// console.log(is.obj({})); // true
-// console.log(is.obj(null)); // true
-// console.log(is.obj([])); // false
-// console.log(is.obj(function () {})); // false
+// Test is.obj
+console.log(is.obj({})); // true
+console.log(is.obj(null)); // true
+console.log(is.obj([])); // false
+console.log(is.obj(function () {})); // false
 
 // // Test is.fun
 // console.log(is.fun(function () {})); // true
