@@ -1,5 +1,14 @@
-function indexOf(array, item) {
-  for (var i = 0; i < array.length; i++) {
+function indexOf(array, item, fromIndex) {
+  if (fromIndex === undefined) {
+    fromIndex = 0;
+  } else if (fromIndex < 0) {
+    fromIndex = array.length + fromIndex;
+    if (fromIndex < 0) {
+      fromIndex = 0;
+    }
+  }
+
+  for (var i = fromIndex; i < array.length; i++) {
     if (array[i] === item) return i;
   }
   return -1;
@@ -14,4 +23,5 @@ function lastIndexOf(array, item) {
 
 function includes(array, item) {
   return indexOf(array, item) !== -1;
-}   
+}
+
