@@ -1,27 +1,26 @@
-function indexOf(array, item, fromIndex) {
-  if (fromIndex === undefined) {
-    fromIndex = 0;
-  } else if (fromIndex < 0) {
-    fromIndex = array.length + fromIndex;
-    if (fromIndex < 0) {
-      fromIndex = 0;
+function indexOf(arr, value, startIndex = 0) {
+    for (let i = startIndex; i < arr.length; i++) {
+      if (arr[i] === value) {
+        return i;
+      }
     }
+    return -1;
   }
-
-  for (var i = fromIndex; i < array.length; i++) {
-    if (array[i] === item) return i;
+  
+  function lastIndexOf(arr, value, startIndex = arr.length - 1) {
+    for (let i = startIndex; i >= 0; i--) {
+      if (arr[i] === value) {
+        return i;
+      }
+    }
+    return -1;
   }
-  return -1;
-}
-
-function lastIndexOf(array, item) {
-  for (var i = array.length - 1; i >= 0; i--) {
-    if (array[i] === item) return i;
+  
+  function includes(arr, value) {
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i] === value) {
+        return true;
+      }
+    }
+    return false;
   }
-  return -1;
-}
-
-function includes(array, item) {
-  return indexOf(array, item) !== -1;
-}
-
