@@ -28,7 +28,7 @@ function divide(a, b) {
       count++;
     }
   } else {
-    while (a < 0) {
+    while (a + b <= 0) {
       a += b;
       count--;
     }
