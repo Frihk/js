@@ -38,8 +38,9 @@ function divide(a, b) {
 
 function modulo(a, b) {
   if (b === 0) {
-    return 0; 
-    }
+    return 0;
+  }
+  let q = divide(a, b);  // ← add this line, q was never defined
   let remainder = a;
   if (q > 0) {
     for (let i = 0; i < q; i++) {
