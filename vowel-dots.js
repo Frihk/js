@@ -1,4 +1,4 @@
-const vowels = /[aeiou](?=[^ ])/gi;
+const vowels = /[aeiou](?=)/gi;
 
 
 function vowelDots(arg) {
