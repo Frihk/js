@@ -1,5 +1,5 @@
 function normal(arg) {
-    for (i = 0; i < arg.length;i++) {
+    for (let i = 0; i < arg.length;i++) {
         if (i + 1 < arg.length && arg[i] + arg[i+1] === 'hi'){
             return true
         }
@@ -8,7 +8,6 @@ function normal(arg) {
 
 }
 
-console.log(normal("oh hi there")); // true
 
 function begin(arg) {
 
@@ -19,7 +18,6 @@ function begin(arg) {
     return false
 }
 
-console.log(begin("hi there")); // true
 
 function end(arg) {
 
@@ -30,7 +28,7 @@ function end(arg) {
     return false
 }
 
-console.log(end("say hi")); // true
+
 
 function beginEnd(arg) {
 
@@ -40,6 +38,3 @@ function beginEnd(arg) {
     }
     return false
 }
-
-
-console.log(beginEnd("hi")); // true
