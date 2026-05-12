@@ -1,5 +1,5 @@
 function isValid(date) {
-    return date instanceof Date && !isNaN(date)
+  return (date instanceof Date || typeof date === 'number') && !isNaN(new Date(date))
 }
 
 function isAfter(date1, date2) {
@@ -19,3 +19,4 @@ function isPast(date) {
     const today = new Date();
     return today > date
 }
+
