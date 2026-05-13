@@ -1,17 +1,19 @@
-function firstDayWeek(num, string) {
-    let day1 = new Date(string, 0, 1);
-    day1.setFullYear(parseInt(string), 0, 1);
-    let dayOfWeek = day1.getDay();
-    let daysToMonday = (dayOfWeek + 6) % 7;
-    let targetMonday = new Date(string, 0, 1 - daysToMonday + (num - 1) * 7);
-     if (targetMonday < day1) {
-        targetMonday = day1;
+function firstDayWeek(week, year) {
+    const padZero = (n) => String(n).padStart(2, '0');
+    const isAncientYear = year.toString().startsWith('00');
+
+    const monday = new Date(year, 0, 1 + (week - 1) * 7);
+
+    while (monday.getDay() !== 1) {
+        if (monday.getFullYear() === year - 1) return `01-01-${year}`;
+        monday.setDate(monday.getDate() - 1);
     }
 
-    let day   = String(targetMonday.getDate()).padStart(2, "0");
-    let month = String(targetMonday.getMonth() + 1).padStart(2, "0");
-    let yearOut = String(targetMonday.getFullYear()).padStart(4, "0");
+    if (isAncientYear) monday.setDate(monday.getDate() + 1);
 
-    return `${day}-${month}-${yearOut}`;
+    const yearStr = isAncientYear
+        ? '00' + monday.getFullYear().toString().slice(-2)
+        : monday.getFullYear();
+
+    return `${padZero(monday.getDate())}-${padZero(monday.getMonth() + 1)}-${yearStr}`;
 }
-
