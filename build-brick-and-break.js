@@ -18,9 +18,9 @@ export const repair = (...ids) => {
     ids.forEach(id => {
         const check = document.getElementById(id);
         if (check.getAttribute('data-foundation')=== 'true'){
-            check.setAttribute('repaired', 'in progress')
+            check.setAttribute('data-repaired', 'in progress')
         }else{
-            check.setAttribute('repaired', 'true')
+            check.setAttribute('data-repaired', 'true')
         }
     })
 }
