@@ -4,7 +4,7 @@ export const build = (number) =>{
         const brick = document.createElement('div')
         brick.setAttribute('id', `brick-${count}`)
         if (count % 3 === 2) {
-            brick.setAttribute('foundation', `true`)
+            brick.setAttribute('data-foundation', `true`)
         }
         if (count === number){
             clearInterval(timer)
@@ -17,7 +17,7 @@ export const build = (number) =>{
 export const repair = (...ids) => {
     ids.forEach(id => {
         const check = document.getElementById(id);
-        if (check.getAttribute('foundation')=== 'true'){
+        if (check.getAttribute('data-foundation')=== 'true'){
             check.setAttribute('repaired', 'in progress')
         }else{
             check.setAttribute('repaired', 'true')
