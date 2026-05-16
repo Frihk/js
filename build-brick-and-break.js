@@ -1,5 +1,5 @@
 let count = 1; 
-const build = (number) =>{ 
+export const build = (number) =>{ 
     const timer = setInterval ( () =>{ 
         const brick = document.createElement('div')
         brick.setAttribute('id', `brick-${count}`)
@@ -14,7 +14,7 @@ const build = (number) =>{
     }, 100) 
 }
 
-const repair = (...ids) => {
+export const repair = (...ids) => {
     ids.forEach(id => {
         const check = document.getElementById(id);
         if (check.getAttribute('foundation')=== 'true'){
@@ -25,7 +25,7 @@ const repair = (...ids) => {
     })
 }
 
-const destroy = () => {
+export const destroy = () => {
     const delEl = document.getElementById(`brick-${count-1}`)
     delEl.remove()
     count--
