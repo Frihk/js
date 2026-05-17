@@ -1,10 +1,12 @@
 import { places } from './where-do-we-go.data.js'
 
 const getCoords = (coordString) => {
-  const parts = coordString.match(/-?\d+/g).map(Number)
+  const parts = coordString.match(/\d+/g).map(Number)
   const deg = parts[0]
+  const min = parts[1]
+  const sec = parts[2]
   const dir = coordString.includes('S') ? -1 : 1
-  return dir * deg
+  return dir * (deg + min / 60 + sec / 3600)
 }
 
 const createCompass = () => {
