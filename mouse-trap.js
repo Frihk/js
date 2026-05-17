@@ -1,46 +1,72 @@
-let trapped = false
-
-export const createCircle = () => {
-    document.addEventListener('click', (event) => {
-        const div = document.createElement('div')
-        div.classList.add('circle')
-        div.style.background = 'white'
-        div.style.position = 'fixed'
-        div.style.left = event.clientX + 'px'
-        div.style.top = event.clientY + 'px'
-        document.body.appendChild(div) 
-        trapped = false 
+export function createCircle() {
+    document.addEventListener('mousedown', event => {
+        const newCirc = document.createElement('div')
+        newCirc.setAttribute('class', 'circle')
+        newCirc.setAttribute('id', 'Tester')
+        let x = event.clientX - 25
+        let y = event.clientY - 25
+        newCirc.setAttribute('style', 'left: ' + x.toString() + 'px; top: ' + y.toString() + 'px; background: white;')
+        document.body.appendChild(newCirc);
     })
 }
 
-export const moveCircle = () => {
-    document.addEventListener('mousemove', (event) => {
-        if (trapped) return
-        const circle = document.body.lastElementChild
-        circle.style.left = (event.clientX - 50)+ 'px'
-        circle.style.top = (event.clientY - 50) + 'px'
-    })
-}
+export function moveCircle() {
 
-export const setBox = () => {
-    const box = document.createElement('div')
-    box.classList.add('box')
-    document.body.appendChild(box)
-    document.addEventListener('mousemove', (event) => {
-         if (trapped) return  // if already trapped, do nothing
 
-        const circle = document.body.lastElementChild
-        const circleRect = circle.getBoundingClientRect()
-        const boxRect = box.getBoundingClientRect()
+    document.addEventListener('mousemove', event => {
+        const lastCircle = document.querySelector('div:last-child')
+        lastCircle.style.left = `${event.clientX - 25}px`
+        lastCircle.style.top = `${event.clientY - 25}px`
+        document.body.append(lastCircle)
+        let midBox = document.querySelector('div.box')
+        let dims = midBox.getBoundingClientRect()
 
-        if (
-            circleRect.top > boxRect.top &&
-            circleRect.left > boxRect.left &&
-            circleRect.bottom < boxRect.bottom &&
-            circleRect.right < boxRect.right
-        ) {
-            circle.style.background = 'var(--purple)'
-            trapped = true
+
+        if (lastCircle.getAttribute('class') !== 'box') {
+            if ((+lastCircle.style.left.replace('px', '') > (dims.x)) && (+lastCircle.style.left.replace('px', '') < (dims.right - 50)) && (+lastCircle.style.top.replace('px', '') > (dims.top)) && (+lastCircle.style.top.replace('px', '') < (dims.bottom - 50))) {
+                lastCircle.style.background = 'var(--purple)'
+            }
         }
+
+        if (event.clientX - 25 < (dims.x) && lastCircle.style.background === 'var(--purple)') {
+            console.log(lastCircle.style.left)
+            lastCircle.style.left = (dims.x).toString() + 'px'
+
+            if (event.clientY - 25 < (dims.top)) {
+                lastCircle.style.top = (dims.y).toString() + 'px'
+            }
+            console.log(event.clientY - 25)
+            console.log(dims.bottom)
+
+            if (event.clientY - 25 > (dims.bottom - 50)) {
+                lastCircle.style.top = (dims.bottom - 50).toString() + 'px'
+            }
+        } else if (event.clientX - 25 > (dims.right - 50) && lastCircle.style.background === 'var(--purple)') {
+            lastCircle.style.left = (dims.right - 50).toString() + 'px'
+
+            if (event.clientY - 25 < (dims.top)) {
+                lastCircle.style.top = (dims.y).toString() + 'px'
+            }
+            console.log(event.clientY - 25)
+            console.log(dims.bottom)
+
+            if (event.clientY - 25 > (dims.bottom - 50)) {
+                lastCircle.style.top = (dims.bottom - 50).toString() + 'px'
+            }
+        } else if ((event.clientY - 25 > (dims.bottom - 50)) && lastCircle.style.background === 'var(--purple)') {
+            lastCircle.style.top = (dims.bottom - 50).toString() + 'px'
+
+        } else if ((event.clientY - 25 < (dims.top)) && lastCircle.style.background === 'var(--purple)') {
+            lastCircle.style.top = (dims.top).toString() + 'px'
+
+        }
+
     })
+
+}
+
+export function setBox() {
+    const centerBox = document.createElement('div')
+    centerBox.setAttribute('class', 'box')
+    document.body.append(centerBox)
 }
