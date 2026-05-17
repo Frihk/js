@@ -17,8 +17,8 @@ export const moveCircle = () => {
     document.addEventListener('mousemove', (event) => {
         if (trapped) return
         const circle = document.body.lastElementChild
-        circle.style.left = event.clientX + 'px'
-        circle.style.top = event.clientY + 'px'
+        circle.style.left = (event.clientX - 12.5)+ 'px'
+        circle.style.top = (event.clientY - 12.5) + 'px'
     })
 }
 
