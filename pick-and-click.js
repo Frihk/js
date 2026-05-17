@@ -31,15 +31,15 @@ export const pick = () => {
     hslDiv.textContent = `hsl(${hue}, 50%, ${lum}%)`
     document.body.style.background = `hsl(${hue}, 50%, ${lum}%)`
 
-    axisX.setAttribute('x1', 0)
-    axisX.setAttribute('x2', window.innerWidth)
-    axisX.setAttribute('y1', y)
-    axisX.setAttribute('y2', y)
+    axisX.setAttribute('x1', x)
+    axisX.setAttribute('x2', x)
+    axisX.setAttribute('y1', 0)
+    axisX.setAttribute('y2', window.innerHeight)
 
-    axisY.setAttribute('x1', x)
-    axisY.setAttribute('x2', x)
-    axisY.setAttribute('y1', 0)
-    axisY.setAttribute('y2', window.innerHeight)
+    axisY.setAttribute('x1', 0)
+    axisY.setAttribute('x2', window.innerWidth)
+    axisY.setAttribute('y1', y)
+    axisY.setAttribute('y2', y)
   })
 
   document.addEventListener('click', () => {
