@@ -1,9 +1,10 @@
 import { places } from './where-do-we-go.data.js'
 
 const getCoords = (coordString) => {
-  const [deg, min, sec, dir] = coordString.match(/\d+/g).map(Number)
-  const correctedDeg = dir === 'S' ? -deg : deg
-  return `${correctedDeg}${min}${sec}`
+  const parts = coordString.match(/-?\d+/g).map(Number)
+  const deg = parts[0]
+  const dir = coordString.includes('S') ? -1 : 1
+  return dir * deg
 }
 
 const createCompass = () => {
@@ -41,9 +42,9 @@ const createSections = (places) => {
 }
 
 export const explore = () => {
-  const orderedPlaces = places.sort((a, b) =>
-    getCoords(b.coordinates).localeCompare(getCoords(a.coordinates))
-  )
+  const orderedPlaces = [...places].sort((a, b) =>
+        getCoords(b.coordinates) - getCoords(a.coordinates)
+    )
 
   const compass = createCompass()
   let oldValue = 0
