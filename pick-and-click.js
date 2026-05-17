@@ -13,6 +13,8 @@ export const pick = () => {
 
   const axisX = document.createElementNS('http://www.w3.org/2000/svg', 'line')
   const axisY = document.createElementNS('http://www.w3.org/2000/svg', 'line')
+  axisX.setAttribute('id', 'axisX') 
+  axisY.setAttribute('id', 'axisY') 
   axisX.style.stroke = axisY.style.stroke = 'white'
   axisX.style.strokeWidth = axisY.style.strokeWidth = '1'
   svg.append(axisX, axisY)
