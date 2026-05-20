@@ -14,6 +14,10 @@ export const pick = (obj, arr) => {
 
 export const omit = (obj, arr) => {
     let newobj = {};
+     if (typeof arr === 'string') {
+        arr = [arr];
+    }
+
     for (let key in obj) {
         if (obj.hasOwnProperty(key)) {
             if (!arr.includes(key)){
