@@ -1,5 +1,9 @@
 export const pick = (obj, arr) => {
     let newobj = {};
+
+    if (typeof arr === 'string') {
+        arr = [arr];
+    }
     arr.forEach(element => {
         if (Object.hasOwn(obj, element)) {
             newobj[element] = obj[element];
@@ -18,4 +22,5 @@ export const omit = (obj, arr) => {
         }
     }
     return newobj;
+    console.log
 }
