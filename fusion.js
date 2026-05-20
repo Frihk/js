@@ -25,20 +25,7 @@ export const fusion = (obj1, obj2) => {
     for (let key in obj2){
         if (!result.hasOwnProperty(key)) {
             result[key] = obj2[key]
+        }
     }
     return result
 }
-
-console.log(fusion({ arr: [1, "2"] }, { arr: [2] }))
-// -> { arr: [1, "2", 2] }
-
-console.log(fusion(
-  { arr: [], arr1: [5] },
-  { arr: [10, 3], arr1: [15, 3], arr2: ["7", "1"] },))
-
-console.log(fusion({ str: "salem" }, { str: "alem" }))
-// -> { str: "salem alem" }
-
-console.log(fusion({ str: "salem" }, { str: "" }))
-// -> { str: "salem " })
-console.log(fusion({ a: 10, b: 8, c: 1 }, { a: 10, b: 2 }))
