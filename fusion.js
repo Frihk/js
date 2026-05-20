@@ -16,22 +16,15 @@ export const fusion = (obj1, obj2) => {
         }else if (typeof obj1[key] !== typeof obj2[key]) {
             if (typeof obj2[key] === 'undefined') {
                 result[key] = obj1[key]
-            }else if (typeof obj1[key] === 'undefined') {
+            }else {
                 result[key] = obj2[key]
             }
         }
     }
 
     for (let key in obj2){
-        if (Array.isArray(obj2[key]) && !result.hasOwnProperty(key)) {
-                result[key] = obj2[key]
-        }else if (typeof obj2[key] === 'string' && !result.hasOwnProperty(key)){
+        if (!result.hasOwnProperty(key)) {
             result[key] = obj2[key]
-        }else if (typeof obj2[key] === 'number' && !result.hasOwnProperty(key)){
-            result[key] = obj2[key]
-        }else if (typeof obj2[key] === 'object' && !result.hasOwnProperty(key) && (typeof obj2[key] === 'object')) {
-            result[key] = obj2[key]
-        }
     }
     return result
 }
