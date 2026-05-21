@@ -31,7 +31,7 @@ export const totalCalories = (arg) =>{
 
 export const lowCarbs = (arg) => {
     return mapEntries( filterEntries(arg, ([key, value]) => {
-        return value.carbs < 50
+        return value.carbs * value.quantity < 50
     }), ([key, value]) => {
         return [key, value.carbs]
     })
