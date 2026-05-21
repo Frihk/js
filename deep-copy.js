@@ -1,5 +1,11 @@
 export const deepCopy = (arg) => {
- if (Array.isArray(arg)) {
+  if (arg === null) return null;
+  
+  if (typeof arg === 'function') return arg;
+  
+  if (arg instanceof RegExp) return new RegExp(arg.source, arg.flags);
+  
+  if (Array.isArray(arg)) {
     let newob = [];
     for (let i = 0; i < arg.length; i++) {
       newob[i] = deepCopy(arg[i]);
