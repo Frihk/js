@@ -1,32 +1,45 @@
-export const pick = (object, keys) => {
-    keys = Array.isArray(keys) ? keys : [keys]
-    const res = {}
-    for (const key of keys) {
-        if (Object.hasOwn(object, key)) {
-            res[key] = object[key]
-        }
-    }
-    return res
-}
-export const filterEntries = (object, func) => {
-    return pick(object, Object.keys(object).filter(key => func([key, object[key]])))
-}
-export const mapEntries = (object, func) => {
-    const res = {}
-    Object.keys(object).forEach(key => {
-        const [k, v] = func([key, object[key]])
-        res[k] = v
-    })
-    return res
-}
-export const totalCalories = (cart, nutritionDB) => {
-    return parseFloat(reduceEntries(cart, (acc, [key, value]) => acc += value / 100 * nutritionDB[key].calories, 0).toFixed(1)) 
+import { nutritionDB } from './manipulate-entries.data.js';
+
+export const filterEntries = (obj, callback) => {
+  const oldobj = Object.entries(obj)
+  const newob =  oldobj.filter(([Key, value]) => callback([Key, value]))
+  return Object.fromEntries(newob)
 }
 
-export const lowCarbs = (cart, nutritionDB) => {
-    return filterEntries(cart, ([key, value]) => value / 100 * nutritionDB[key].carbs < 50)
+export const mapEntries = (obj, callback) => {
+  const oldobj = Object.entries(obj)
+  const newob =  oldobj.map(([Key, value]) => callback([Key, value]))
+  return Object.fromEntries(newob)
 }
 
-export const cartTotal = (cart, nutritionDB) => {
-    return mapEntries(cart, ([key, value]) => [key, mapEntries(nutritionDB[key], ([k, v]) => [k, parseFloat((value / 100 * v).toFixed(3))])])
+export const reduceEntries = (obj, callback, intvalue) => {
+  const oldobj = Object.entries(obj)
+  let newob;
+  if (typeof intvalue === 'undefined'){
+    newob =  oldobj.reduce((acc, [Key, value]) => callback(acc, [Key, value]))
+  } else {
+    newob =  oldobj.reduce((acc, [Key, value]) => callback(acc, [Key, value]), intvalue)
+  }
+  return newob
+}
+
+export const totalCalories = (arg) => {
+  const newob = reduceEntries(arg, (acc, [Key, value]) => {
+    return acc + (nutritionDB[Key].calories / 100) * value
+  }, 0)
+  return +(newob.toFixed(1))
+}
+
+export const lowCarbs = (arg) => {
+  return filterEntries(arg, ([Key, value]) => {
+    return (nutritionDB[Key].carbs / 100) * value < 50
+  })
+}
+
+export const cartTotal = (arg) => {
+  return mapEntries(arg, ([Key, value]) => {
+    return [Key, Object.fromEntries(
+      Object.keys(nutritionDB[Key]).map(prop => [prop, +((nutritionDB[Key][prop] / 100) * value).toFixed(3)])
+    )]
+  })
 }
