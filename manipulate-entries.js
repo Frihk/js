@@ -1,5 +1,3 @@
-import { nutritionDB } from './manipulate-entries.data.js';
-
 export const filterEntries = (obj, callback) => {
   const oldobj = Object.entries(obj)
   const newob =  oldobj.filter(([Key, value]) => callback([Key, value]))
@@ -24,22 +22,25 @@ export const reduceEntries = (obj, callback, intvalue) => {
 }
 
 export const totalCalories = (arg) => {
+  const db = globalThis.nutritionDB
   const newob = reduceEntries(arg, (acc, [Key, value]) => {
-    return acc + (nutritionDB[Key].calories / 100) * value
+    return acc + (db[Key].calories / 100) * value
   }, 0)
   return +(newob.toFixed(1))
 }
 
 export const lowCarbs = (arg) => {
+  const db = globalThis.nutritionDB
   return filterEntries(arg, ([Key, value]) => {
-    return (nutritionDB[Key].carbs / 100) * value < 50
+    return (db[Key].carbs / 100) * value < 50
   })
 }
 
 export const cartTotal = (arg) => {
+  const db = globalThis.nutritionDB
   return mapEntries(arg, ([Key, value]) => {
     return [Key, Object.fromEntries(
-      Object.keys(nutritionDB[Key]).map(prop => [prop, +((nutritionDB[Key][prop] / 100) * value).toFixed(3)])
+      Object.keys(db[Key]).map(prop => [prop, +((db[Key][prop] / 100) * value).toFixed(3)])
     )]
   })
 }
