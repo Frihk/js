@@ -1,54 +1,33 @@
-export const filterEntries = (obj, callback) => {
-  const oldobj = Object.entries(obj)
-  const newob =  oldobj.filter(([Key, value]) => callback([Key, value]))
-  return Object.fromEntries(newob)
-}
-
-export const mapEntries = (obj, callback) => {
-  const oldobj = Object.entries(obj)
-  const newob =  oldobj.map(([Key, value]) => callback([Key, value]))
-  return Object.fromEntries(newob)
-}
-
-export const reduceEntries = (obj, callback, intvalue = 0) => {
-  const oldobj = Object.entries(obj)
-  let newob;
-  if (typeof intvalue === 'undefined'){
-    newob =  oldobj.reduce((acc, [Key, value]) => callback(acc, [Key, value]))
-  }else {
-    newob =  oldobj.reduce((acc, [Key, value]) => callback(acc, [Key, value]),intvalue)
-  }
-  return newob
-}
-
-export const totalCalories = (cart) => {
-  return parseFloat(
-    reduceEntries(
-      cart,
-      (acc, [key, value]) => acc + (nutritionDB[key].calories * value) / 100,
-      0
-    ).toFixed(1)
-  );
-};
-
-export const lowCarbs = (cart) => {
-  return filterEntries(
-    cart,
-    ([key, value]) => {
-      if (!nutritionDB[key]) return false;
-      const carbs = nutritionDB[key].carbs;
-      return carbs !== 0 ? (value * carbs) / 100 < 50 : true;
+const pick = (object, keys) => {
+    keys = Array.isArray(keys) ? keys : [keys]
+    const res = {}
+    for (const key of keys) {
+        if (Object.hasOwn(object, key)) {
+            res[key] = object[key]
+        }
     }
-  );
-};
-
-export const cartTotal = (cart) => {
-  return mapEntries(cart, ([key, grams]) => {
-    const nutrients = nutritionDB[key];
-    const totals = {};
-    for (let nutrient in nutrients) {
-      totals[nutrient] = Math.round((grams / 100) * nutrients[nutrient] * 1000) / 1000;
-    }
-    return [key, totals];
-  });
-};
+    return res
+}
+const filterEntries = (object, func) => {
+    return pick(object, Object.keys(object).filter(key => func([key, object[key]])))
+}
+const mapEntries = (object, func) => {
+    const res = {}
+    Object.keys(object).forEach(key => {
+        const [k, v] = func([key, object[key]])
+        res[k] = v
+    })
+    return res
+}
+const reduceEntries = (object, func, acc) => {
+    return Object.keys(object).reduce((acc, key) => acc != undefined ? acc = func(acc, [key, object[key]]) : acc = key, acc)
+}
+const totalCalories = (cart) => {
+    return parseFloat(reduceEntries(cart, (acc, [key, value]) => acc += value / 100 * nutritionDB[key].calories, 0).toFixed(1)) 
+}
+const lowCarbs = (cart) => {
+    return filterEntries(cart,([key,value])=>value/ 100 * nutritionDB[key].carbs<50)
+}
+const cartTotal = (cart) => {
+    return mapEntries(cart,([key,value])=>[key, mapEntries(nutritionDB[key],([k,v])=>[k,parseFloat((value/100*v).toFixed(3))])])
+}
