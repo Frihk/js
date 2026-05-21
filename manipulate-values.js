@@ -10,8 +10,8 @@ export const mapValues = (obj, callback) => {
   return Object.fromEntries(newob)
 }
 
-export const reduceValues = (obj, callback) => {
+export const reduceValues = (obj, callback, intvalue) => {
   const oldobj = Object.values(obj)
-  const newob =  oldobj.reduce((acc, cr) => callback(acc, cr))
+  const newob =  oldobj.reduce((acc, cr) => callback(acc, cr),intvalue)
   return newob
 }
