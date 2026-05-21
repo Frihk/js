@@ -19,15 +19,14 @@ const mapEntries = (object, func) => {
     })
     return res
 }
-const reduceEntries = (object, func, acc) => {
-    return Object.keys(object).reduce((acc, key) => acc != undefined ? acc = func(acc, [key, object[key]]) : acc = key, acc)
-}
-const totalCalories = (cart) => {
+const totalCalories = (cart, nutritionDB) => {
     return parseFloat(reduceEntries(cart, (acc, [key, value]) => acc += value / 100 * nutritionDB[key].calories, 0).toFixed(1)) 
 }
-const lowCarbs = (cart) => {
-    return filterEntries(cart,([key,value])=>value/ 100 * nutritionDB[key].carbs<50)
+
+const lowCarbs = (cart, nutritionDB) => {
+    return filterEntries(cart, ([key, value]) => value / 100 * nutritionDB[key].carbs < 50)
 }
-const cartTotal = (cart) => {
-    return mapEntries(cart,([key,value])=>[key, mapEntries(nutritionDB[key],([k,v])=>[k,parseFloat((value/100*v).toFixed(3))])])
+
+const cartTotal = (cart, nutritionDB) => {
+    return mapEntries(cart, ([key, value]) => [key, mapEntries(nutritionDB[key], ([k, v]) => [k, parseFloat((value / 100 * v).toFixed(3))])])
 }
