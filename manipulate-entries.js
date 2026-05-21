@@ -30,9 +30,13 @@ export const totalCalories = (cart) => {
 };
 
 export const lowCarbs = (cart) => {
-  return filterEntries(
+  const filtered = filterEntries(
     cart,
     ([key, value]) => value.carbs < 50
+  );
+  return mapEntries(
+    filtered,
+    ([key, value]) => [key, value.calories]
   );
 };
 
