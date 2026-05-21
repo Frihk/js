@@ -1,7 +1,7 @@
 export const pick = (object, keys) => {
     keys = Array.isArray(keys) ? keys : [keys]
-    export const res = {}
-    for (export const key of keys) {
+    const res = {}
+    for (const key of keys) {
         if (Object.hasOwn(object, key)) {
             res[key] = object[key]
         }
