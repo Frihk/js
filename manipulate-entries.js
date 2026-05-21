@@ -23,22 +23,21 @@ export const reduceEntries = (obj, callback, intvalue = 0) => {
 
 export const totalCalories = (arg) =>{
     return reduceEntries(arg, (acc, [Key, value]) => {
-       return acc + value.calories
-    }
-    )
+       return acc + (nutritionDB[Key].calories / 100) * value
+    },0)
 }
 
 
 export const lowCarbs = (arg) => {
-    return mapEntries( filterEntries(arg, ([key, value]) => {
-        return value.carbs * value.quantity < 50
-    }), ([key, value]) => {
-        return [key, value.carbs]
+    return filterEntries(arg, ([key, value]) => {
+        return (nutritionDB[key].carbs / 100) * value < 50
     })
 }
 
 export const cartTotal = (arg) => {
     return mapEntries(arg, ([key, value]) => {
-       return [key, value]
+        return [key, Object.fromEntries(
+            Object.keys(nutritionDB[key]).map(prop => [prop, +((nutritionDB[key][prop] / 100) * value).toFixed(3)])
+        )]
     })
 }
