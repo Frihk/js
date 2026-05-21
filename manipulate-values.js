@@ -12,6 +12,11 @@ export const mapValues = (obj, callback) => {
 
 export const reduceValues = (obj, callback, intvalue) => {
   const oldobj = Object.values(obj)
-  const newob =  oldobj.reduce((acc, cr) => callback(acc, cr),intvalue)
+  let newob;
+  if (typeof intvalue === 'undefined'){
+    newob =  oldobj.reduce((acc, cr) => callback(acc, cr))
+  }else {
+    newob =  oldobj.reduce((acc, cr) => callback(acc, cr),intvalue)
+  }
   return newob
 }
