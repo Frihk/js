@@ -11,3 +11,30 @@ const throttle = (arg, delay) =>{
     }, delay);
   };
 }
+
+const opThrottle = (arg, delay, options = {}) => {
+  let timer = null;
+  let lastArgs = null;
+  const { leading = true, trailing = true } = options;
+
+  return function (...args) {
+    if (timer) {
+      lastArgs = args;
+      return;
+    }
+
+    if (leading) {
+      arg(...args);
+    } else {
+      lastArgs = args;
+    }
+
+    timer = setTimeout(() => {
+      if (trailing && lastArgs) {
+        arg(...lastArgs);
+      }
+      timer = null;
+      lastArgs = null;
+    }, delay);
+  };
+}
