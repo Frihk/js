@@ -15,7 +15,7 @@ const throttle = (arg, delay) =>{
 const opThrottle = (arg, delay, options = {}) => {
   let timer = null;
   let lastArgs = null;
-  const { leading = true, trailing = true } = options;
+  const { leading = false, trailing = false } = options;
 
   return function (...args) {
     if (timer) {
