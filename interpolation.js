@@ -1,7 +1,7 @@
 const interpolation = ({ step, start, end, duration, callback }) => {
   const interval = duration / step;
 
-  for (let i = 1; i < step; i++) {
+  for (let i = 1; i <= step; i++) {
     const x = start + (i / step) * (end - start);
     const y = (i + 1) * interval;
 
