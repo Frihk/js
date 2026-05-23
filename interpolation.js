@@ -7,6 +7,6 @@ const interpolation = ({ step, start, end, duration, callback }) => {
 
     setTimeout(() => {
       callback([x, y]);
-    }, interval * i);
+    }, y);
   }
 }
