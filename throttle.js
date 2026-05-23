@@ -17,6 +17,18 @@ const opThrottle = (arg, delay, options = {}) => {
   let lastArgs = null;
   const { leading = false, trailing = false } = options;
 
+  const startTimer = () => {
+    timer = setTimeout(() => {
+      if (trailing && lastArgs) {
+        arg(...lastArgs);
+        lastArgs = null;
+        startTimer();
+      } else {
+        timer = null;
+      }
+    }, delay);
+  };
+
   return function (...args) {
     if (timer) {
       lastArgs = args;
@@ -29,12 +41,6 @@ const opThrottle = (arg, delay, options = {}) => {
       lastArgs = args;
     }
 
-    timer = setTimeout(() => {
-      if (trailing && lastArgs) {
-        arg(...lastArgs);
-      }
-      timer = null;
-      lastArgs = null;
-    }, delay);
+    startTimer();
   };
 }
