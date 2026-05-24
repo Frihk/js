@@ -1,10 +1,19 @@
 const all = (obj) => {
-  const entries = Object.entries(obj);
+  return new Promise((resolve, reject) => {
+    const entries = Object.entries(obj);
+    const result = {};
+    let remaining = entries.length;
 
-  const resolvedEntries = entries.map(([key, value]) => 
-    Promise.resolve(value).then((resolved) => [key, resolved])
-  );
+    if (remaining === 0) return resolve({});
 
-  return Promise.all(resolvedEntries).then(Object.fromEntries);
+    entries.forEach(([key, value]) => {
+      Promise.resolve(value)
+        .then((resolved) => {
+          result[key] = resolved;
+          remaining--;
+          if (remaining === 0) resolve(result);
+        })
+        .catch(reject);
+    });
+  });
 };
-
