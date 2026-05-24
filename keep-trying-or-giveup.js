@@ -4,7 +4,7 @@ const retry = (count, callback) => {
       try {
         return await callback(...args);
       } catch (err) {
-        if (i === count) throw new Error('All retries failed');
+        if (i === count) throw err;
       }
     }
   };
